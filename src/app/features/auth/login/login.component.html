@@ -1,0 +1,89 @@
+<div class="w-9/12 mx-auto my-9">
+  <h1 class="my-3">Login Now</h1>
+  @if (errorMessage.length >0 ) {
+  <div
+    class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+    role="alert"
+  >
+    <span class="font-medium">{{ errorMessage }}</span>
+  </div>
+  }
+  <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+    <!-- Email -->
+    <div class="mb-3">
+      <label
+        class="block mb-2 text-sm font-medium text-green-900 dark:text-white"
+        >E-mail:</label
+      >
+      <input
+        formControlName="email"
+        type="email"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+      />
+
+      @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+      @if (loginForm.get('email')?.getError('required')) {
+      <div
+        class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span class="font-medium">Email alert!</span> Email Is Required
+      </div>
+      }@else if (loginForm.get('email')?.getError('email')) {
+      <div
+        class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span class="font-medium">Email alert!</span>Please Enter Valid Email
+      </div>
+      } }
+    </div>
+
+    <div class="mb-3">
+      <label
+        class="block mb-2 text-sm font-medium text-green-900 dark:text-white"
+        >Password:</label
+      >
+      <input
+        formControlName="password"
+        type="password"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+      />
+
+      @if (loginForm.get('password')?.errors &&
+      loginForm.get('password')?.touched) { @if
+      (loginForm.get('password')?.getError('required')) {
+      <div
+        class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span class="font-medium">password alert!</span> password Is Required
+      </div>
+      }@else if (loginForm.get('password')?.getError('pattern')) {
+      <div
+        class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span class="font-medium">password alert!</span>must be at least 6 chars
+      </div>
+      } }
+    </div>
+    <div class="flex justify-between justify-items-center">
+      <button
+        [disabled]="loginForm.invalid"
+        type="submit"
+        class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-green-700 rounded-lg border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+      >
+        LogIn @if (isLoading) {
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        }
+      </button>
+      <a
+        routerLink="/forgotpassword"
+        routerLinkActive="router-link-active"
+        class="link-primary"
+        >Forgot Password</a
+      >
+    </div>
+  </form>
+</div>

@@ -1,0 +1,20 @@
+<section class="my-4">
+  <div class="flex flex-wrap gap-4 justify-center">
+    @for (category of categoryData; track $index) {
+    <div
+      role="button"
+      [routerLink]="['/categorydetails', category._id]"
+      class="border border-green-500 rounded-lg p-2 shadow-md w-64 hover:shadow-lg transition"
+    >
+      <img
+        class="w-full h-[270px] object-cover rounded-md"
+        [src]="category.image"
+        [alt]="category.name"
+      />
+      <h3 class="text-center text-green-600 font-semibold mt-2">
+        {{ category.name }}
+      </h3>
+    </div>
+    }
+  </div>
+</section>

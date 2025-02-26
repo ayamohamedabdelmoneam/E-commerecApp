@@ -1,0 +1,141 @@
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet"
+/> -->
+<section>
+  <div class="grid md:grid-cols-[70%_minmax(0,1fr)]">
+    <div>
+      <owl-carousel-o [options]="customeMainSlider">
+        <ng-template carouselSlide>
+          <img src="/images/img1.avif" alt="" class="w-full h-[300px]" />
+        </ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img2.avif" alt="" class="w-full h-[300px]"
+        /></ng-template>
+        <ng-template carouselSlide>
+          <img src="/images/img3.avif" alt="" class="w-full h-[300px]"
+        /></ng-template>
+      </owl-carousel-o>
+    </div>
+    <div>
+      <img src="/images/grocery-banner.png" class="w-full h-[150px]" alt="" />
+      <img
+        src="/images/grocery-banner-2.jpeg"
+        class="w-full h-[150px]"
+        alt=""
+      />
+    </div>
+  </div>
+</section>
+<section>
+  <h2 class="text-4xl py-5">Popular Categories:</h2>
+  <div>Some tags before</div>
+  <owl-carousel-o [options]="customOptions">
+    @for (cat of catgories; track cat._id) {
+    <ng-template carouselSlide>
+      <div>
+        <img [src]="cat.image" alt="" class="w-full h-[250px]" />
+        <h3 class="text-green-600">{{ cat.name }}</h3>
+      </div>
+    </ng-template>
+    }
+  </owl-carousel-o>
+  <div>Some tags after</div>
+</section>
+<section>
+  <div class="w-1/2 mx-auto my-6">
+    <div class="relative">
+      <div
+        class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3"
+      >
+        <svg
+          class="w-4 h-4 text-gray-500 dark:text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        [(ngModel)]="term"
+        type="search"
+        id="default-search"
+        class="w-full p-4 mx-auto text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search..."
+        required
+      />
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-4xl py-5">Popular Products:</h2>
+
+  <div class="grid sm:grid-col-2 md:grid-col-3 lg:grid-cols-4 gap-10">
+    <!-- card -->
+
+    @for (product of allProducts | search:term ; track product._id) {
+    <div
+      [routerLink]="['/product-details', product._id]"
+      class="cursor-pointer"
+    >
+      <div
+        class="card border border-green-400/50 rounded-md overflow-hidden shadow relative"
+      >
+        <div class="card-img">
+          <img
+            [src]="product.imageCover"
+            class="w-full h-[250px] object-contain"
+            alt=""
+          />
+        </div>
+        <div class="card-body px-2 py-4">
+          <h4 class="text-green-500 text-xs">{{ product.category.name }}</h4>
+          <h3 class="font-medium">
+            {{ product.title | cuttext : 3 }}
+          </h3>
+          <div class="flex justify-between items-center">
+            <span>{{ product.price | currency : "e£" }} </span>
+            <div class="flex items-center">
+              <i class="fas fa-star text-yellow-300"></i>
+              <span class="text-gray-500">{{ product.ratingsAverage }}</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          (click)="addProduct(product._id, btnAdd)"
+          #btnAdd
+          class="bg-green-600 px-6 py-2 rounded border text-white my-1 block w-[95%] mx-auto"
+        >
+          Add to cart
+          <span class="ms-1"><i class="fa-solid fa-cart-plus"></i></span>
+        </button>
+        @if (!wishListData.includes($any(product._id))) {
+        <i
+          (click)="addHeart(product._id)"
+          class="text-2xl text-black cursor-pointer fa-regular fa-heart"
+        >
+        </i>
+        } @if (wishListData.includes($any(product._id))) {
+        <i
+          (click)="removeHeart(product._id)"
+          class="text-2xl text-black cursor-pointer fa-solid fa-heart"
+        >
+        </i>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,20 @@
+@if (brandDetails._id) {
+<div class="w-3/4 mx-auto rounded-lg shadow-lg bg-gray-100 p-4 my-4">
+  <div class="flex flex-wrap items-center gap-4">
+    <div class="w-full md:w-1/2">
+      <img
+        class="w-full rounded-lg"
+        [src]="brandDetails.image"
+        [alt]="brandDetails.name"
+      />
+    </div>
+    <div class="w-full md:w-1/2">
+      <h2 class="text-xl font-bold text-gray-800">{{ brandDetails.name }}</h2>
+      <div class="mt-2 text-gray-600">
+        <p class="m-0">Created: {{ brandDetails.createdAt }}</p>
+        <p class="m-0">Updated: {{ brandDetails.updatedAt }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+}

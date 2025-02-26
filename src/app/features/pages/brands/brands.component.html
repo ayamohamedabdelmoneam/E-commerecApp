@@ -1,0 +1,22 @@
+<div class="my-4">
+  <div class="flex flex-wrap justify-center gap-4">
+    @for (brand of brandsData; track brand._id) {
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+      <div
+        role="button"
+        [routerLink]="['/brandsdetails', brand._id]"
+        class="border border-green-500 rounded-lg p-2 shadow-lg transition-transform duration-300 hover:scale-105"
+      >
+        <img
+          class="w-full h-[270px] object-cover rounded"
+          [src]="brand.image"
+          [alt]="brand.name"
+        />
+        <h3 class="text-center text-green-600 font-semibold mt-2">
+          {{ brand.name }}
+        </h3>
+      </div>
+    </div>
+    }
+  </div>
+</div>

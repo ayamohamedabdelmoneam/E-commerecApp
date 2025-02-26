@@ -1,0 +1,72 @@
+<section class="py-8">
+  @if (products().length > 0) {
+  <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">
+    All Products
+  </h2>
+
+  <div
+    *ngFor="let product of paginatedProducts"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 justify-center"
+  >
+    <div
+      class="border border-gray-200 rounded-lg shadow-md overflow-hidden bg-white p-4"
+    >
+      <header
+        class="cursor-pointer"
+        [routerLink]="['/productdetails', product._id]"
+      >
+        <img
+          class="w-full h-40 object-cover rounded-md"
+          [src]="product.imageCover"
+          [title]="product.title"
+          [alt]="product.title"
+        />
+        <h3 class="text-sm font-semibold text-gray-700 mt-2">
+          {{ product.title | cuttext : 2 }}
+        </h3>
+        <h4 class="text-xs text-blue-600 font-medium">
+          {{ product.category.name }}
+        </h4>
+        <div
+          class="flex justify-between items-center text-sm text-gray-600 mt-2"
+        >
+          <span>{{ product.price | currency : "e£" }}</span>
+          <p>
+            <i
+              *ngFor="let num of [1, 2, 3, 4, 5]"
+              class="fa-solid fa-star"
+              [class.text-yellow-400]="product.ratingsAverage >= num"
+            ></i>
+
+            <span class="text-gray-400">{{ product.ratingsAverage }}</span>
+          </p>
+        </div>
+      </header>
+      <footer class="mt-4">
+        <button
+          (click)="addProduct(product._id, btnAdd)"
+          #btnAdd
+          class="bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold w-full py-2 rounded-md"
+        >
+          + Add To Cart
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="flex justify-center mt-6">
+    <pagination-controls
+      id="productPaginate"
+      (pageChange)="pageChanged($event)"
+      [maxSize]="5"
+      [directionLinks]="true"
+      [autoHide]="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      class="flex space-x-2 text-gray-700"
+    >
+    </pagination-controls>
+  </div>
+  }
+</section>

@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.btn-green {
+  @apply bg-green-800 text-white border border-white p-3 rounded-full;
+}
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+
+@import "ngx-toastr/toastr";
+
+@import "ngx-toastr/toastr-bs4-alert";
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+@import "ngx-toastr/toastr-bs4-alert";
+
+@import "ngx-toastr/toastr-bs5-alert";
